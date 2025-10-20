@@ -28,12 +28,18 @@ return {
     require("mason").setup({
       ui = {
         ensure_installed = {
+          -- LSP Servers
           "typescript-language-server",
           "pyright",
           "html-lsp",
           "css-lsp",
           "emmet-ls",
           "lua-language-server",
+          -- Debug Adapters
+          "js-debug-adapter",
+          -- Linters/Formatters
+          "prettier",
+          "eslint_d",
         }
       }
     })
