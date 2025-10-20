@@ -1,1 +1,10 @@
 nvim/lazy-lock.json
+
+# PC個別設定（各環境固有の設定ファイル）
+zsh/local/*.zsh
+!zsh/local/README.md
+!zsh/local/example.zsh
+
+# バックアップファイル
+backup/*
+!backup/.gitkeep

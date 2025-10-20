@@ -1,30 +1,57 @@
-return {
-  'stevearc/conform.nvim',
-  lazy = false,
+-- lua/plugins/conform.lua など
 
-  opts = {
-    -- 1. フォーマッターの定義
-    formatters_by_ft = {
-      -- ... あなたのフォーマッター設定 ...
-      javascript = { 'prettier' },
-      typescript = { 'prettier' },
-      json = { 'jq' },
-      -- HTMLやCSSもフォーマットしたい場合は追加
-      html = { 'prettier' },
-      css = { 'prettier' },	
-    },
-    
-    -- 2. 自動フォーマットの設定
-    format_on_save = {
-      -- ... あなたの format_on_save 設定 ...
-      async = true,
-      lsp_format = 'fallback',
-    },
-  },
-  
-  -- ✅ ここに keys テーブルを追加します
-  keys = {
-    -- n (ノーマル), v (ビジュアル) モードで <leader>fm を format 関数にマップ
-    { '<leader>i', function() require('conform').format() end, mode = { 'n', 'v' }, desc = 'Format file or selection' },
-  },
+return {
+	"stevearc/conform.nvim",
+	-- ft (filetype) をトリガーにして、関連ファイルを開いたときに初めてロードする
+	ft = {
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"vue",
+		"svelte",
+		"html",
+		"css",
+		"scss",
+		"json",
+		"yaml",
+		"markdown",
+		"lua",
+		-- 他にフォーマットしたいファイルタイプがあれば追加
+	},
+	-- lazy.nvimでは config = function() ... end よりも opts = { ... } を使うのが推奨
+	opts = {
+		-- フォーマッターの定義
+		formatters_by_ft = {
+			javascript = { "prettierd" },
+			javascriptreact = { "prettierd" },
+			typescript = { "prettierd" },
+			typescriptreact = { "prettierd" },
+			vue = { "prettierd" },
+			svelte = { "prettierd" },
+			html = { "prettierd" },
+			css = { "prettierd" },
+			scss = { "prettierd" },
+			json = { "prettierd" },
+			yaml = { "prettierd" },
+			markdown = { "prettierd" },
+			lua = { "stylua" },
+		},
+
+		-- 保存時にフォーマットを実行する設定
+		-- この設定が一番安定性が高い
+		format_on_save = {
+			timeout_ms = 500,
+			lsp_fallback = true,
+		},
+	},
+	-- config関数を使って、プラグインがロードされた後にキーマップを設定する
+	config = function(_, opts)
+		require("conform").setup(opts)
+
+		-- 手動フォーマットのキーマップ
+		vim.keymap.set({ "n", "v" }, "<leader>i", function()
+			require("conform").format({ async = true, lsp_fallback = true })
+		end, { desc = "Format buffer" })
+	end,
 }
