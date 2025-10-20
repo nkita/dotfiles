@@ -38,12 +38,11 @@ return {
 			lua = { "stylua" },
 		},
 
-		-- 保存時にフォーマットを実行する設定
-		-- この設定が一番安定性が高い
-		format_on_save = {
-			timeout_ms = 500,
-			lsp_fallback = true,
-		},
+		-- 自動フォーマットは無効（手動のみ）
+		-- format_on_save = {
+		--   timeout_ms = 500,
+		--   lsp_fallback = true,
+		-- },
 	},
 	-- config関数を使って、プラグインがロードされた後にキーマップを設定する
 	config = function(_, opts)

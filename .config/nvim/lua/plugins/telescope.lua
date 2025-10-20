@@ -11,13 +11,19 @@ return {
   -- 2. キーマップの設定 (遅延読み込みの設定を兼ねる)
   keys = {
     -- ファイル検索: <leader>ff でプロジェクト内のファイルを検索
-    {"<leader>f", function() require("telescope.builtin").find_files() end, desc = "Find Files"},
+    {"<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find Files"},
     -- Grep検索: <leader>fg でカレントディレクトリからテキストを検索
-    {"<leader>g", function() require("telescope.builtin").live_grep() end, desc = "Live Grep"},
+    {"<leader>fg", function() require("telescope.builtin").live_grep() end, desc = "Live Grep"},
     -- 開いているバッファ検索: <leader>fb
-    {"<leader>b", function() require("telescope.builtin").buffers() end, desc = "Find Buffers"},
+    {"<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Find Buffers"},
     -- ヘルプタグ検索: <leader>fh
-    {"<leader>h", function() require("telescope.builtin").help_tags() end, desc = "Help Tags"},
+    {"<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Help Tags"},
+    -- 診断一覧: <leader>fd で診断を表示
+    {"<leader>fd", function() require("telescope.builtin").diagnostics() end, desc = "Diagnostics"},
+    -- 現在のバッファのみの診断: <leader>fD
+    {"<leader>fD", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, desc = "Buffer Diagnostics"},
+    -- LSPシンボル検索: <leader>fs でファイル内のシンボル（関数、変数など）を検索
+    {"<leader>fs", function() require("telescope.builtin").lsp_document_symbols() end, desc = "Document Symbols"},
   },
   -- 3. 詳細設定 (オプション)
   config = function()
