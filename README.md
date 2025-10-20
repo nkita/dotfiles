@@ -71,6 +71,7 @@ brew install ripgrep
 
 # Neovim関連
 brew install neovim
+brew install glow  # 軽量・安全なMarkdownプレビュー
 
 # 高機能lsコマンド（オプション）
 brew install eza
@@ -112,6 +113,30 @@ source ~/.zshrc
 1. **フォント**: インストールしたNerd Fontを選択
 2. **カラースキーム**: お好みのものに変更（tokyonightなど推奨）
 
+### Neovim機能
+
+このdotfilesには以下のNeovim機能が含まれています：
+
+**Markdownプレビュー**
+```vim
+" Markdownファイルで使用
+
+" ターミナル内プレビュー:
+<leader>md : Glowプレビュー
+<leader>mp : Glowプレビュー
+```
+
+**Node.jsデバッグ**
+```vim
+" JavaScriptファイルで使用
+F5      : デバッグ開始/継続
+F1      : ステップイン
+F2      : ステップオーバー
+F3      : ステップアウト
+F7      : デバッグUIの表示/非表示
+<leader>b : ブレークポイント切り替え
+```
+
 ## 更新・メンテナンス
 
 ### dotfilesの更新
@@ -149,6 +174,8 @@ source ~/dotfiles/zsh/local/$(hostname -s).zsh
 ```bash
 # .config/nvim/ 以下を変更後、Neovim内で
 :Lazy sync
+# Mason管理のツールを更新
+:MasonInstallAll
 # または Neovimを再起動
 ```
 
@@ -240,3 +267,10 @@ rg --version
 - **自動化**: ホスト名で自動的に個別設定を読み込む
 - **拡張性**: 新しい設定ファイルを簡単に追加できる
 - **保守性**: 各設定の役割が明確
+- **セキュリティ重視**: 不要なNode.js依存を排除し軽量・安全な構成
+
+## セキュリティポリシー
+
+- **依存関係最小化**: 必要最小限のパッケージのみインストール
+- **定期更新**: Homebrewパッケージの定期更新を推奨
+- **軽量設計**: Neovimプラグインは軽量で安全なものを優先選択
