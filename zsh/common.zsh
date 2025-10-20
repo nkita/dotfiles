@@ -2,6 +2,10 @@
 # 全環境共通のzsh設定
 # ===================================
 
+# エディタ設定
+export VISUAL=nvim
+export EDITOR=nvim
+
 # oh-my-posh設定
 # Need: brew install jandedobbeleer/oh-my-posh/oh-my-posh
 # Theme: https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/amro.omp.json

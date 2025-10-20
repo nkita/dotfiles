@@ -8,7 +8,7 @@
 
 ```bash
 # 1. 依存関係をインストール
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep neovim eza
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep neovim eza lazygit
 brew install --cask font-hack-nerd-font
 
 # 2. dotfilesをクローンしてセットアップ
@@ -73,6 +73,9 @@ brew install ripgrep
 brew install neovim
 brew install glow  # 軽量・安全なMarkdownプレビュー
 
+# Git TUI（lazygit）
+brew install lazygit
+
 # 高機能lsコマンド（オプション）
 brew install eza
 ```
@@ -117,6 +120,12 @@ source ~/.zshrc
 
 このdotfilesには以下のNeovim機能が含まれています：
 
+**Git管理（LazyGit）**
+```vim
+<leader>gg : LazyGit起動
+<leader>gf : 現在のファイルの履歴をLazyGitで表示
+```
+
 **Markdownプレビュー**
 ```vim
 " Markdownファイルで使用
@@ -124,6 +133,23 @@ source ~/.zshrc
 " ターミナル内プレビュー:
 <leader>md : Glowプレビュー
 <leader>mp : Glowプレビュー
+```
+
+**LSP診断とナビゲーション**
+```vim
+" エラー・警告の確認
+gl          : カーソル行の診断を表示
+<leader>fd  : 診断一覧（Telescope）
+<leader>fD  : 現在のファイルの診断
+<leader>q   : 診断をQuickfixに表示
+[d / ]d     : 前/次の診断へジャンプ
+
+" コードナビゲーション
+gd          : 定義へジャンプ（エイリアス対応）
+gD          : 宣言へジャンプ
+gi          : 実装へジャンプ
+gr          : 参照一覧
+K           : ホバー情報を表示
 ```
 
 **Node.jsデバッグ**
