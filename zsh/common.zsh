@@ -2,6 +2,13 @@
 # 全環境共通のzsh設定
 # ===================================
 
+# Homebrew PATH設定（最初に読み込む）
+if [[ -f /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # エディタ設定
 export VISUAL=nvim
 export EDITOR=nvim
