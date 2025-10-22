@@ -5,6 +5,10 @@ gui:
       - bold
     inactiveBorderColor:
       - white
+    selectedLineBgColor:
+      - "#1a3a5a"
+    selectedRangeBgColor:
+      - "#1a3a5a"
 
 git:
   paging:
