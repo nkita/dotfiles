@@ -8,7 +8,7 @@
 
 ```bash
 # 1. 依存関係をインストール
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep neovim eza lazygit
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep neovim eza lazygit git-delta
 brew install --cask font-hack-nerd-font
 
 # 2. dotfilesをクローンしてセットアップ
@@ -75,6 +75,9 @@ brew install glow  # 軽量・安全なMarkdownプレビュー
 
 # Git TUI（lazygit）
 brew install lazygit
+
+# Git差分ツール（delta）
+brew install git-delta
 
 # 高機能lsコマンド（オプション）
 brew install eza

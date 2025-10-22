@@ -10,14 +10,10 @@ return {
   },
   -- 2. キーマップの設定 (遅延読み込みの設定を兼ねる)
   keys = {
-    -- ファイル検索: <leader>ff でプロジェクト内のファイルを検索
-    {"<C-f>", function() require("telescope.builtin").find_files() end, desc = "Find Files"},
-    -- Grep検索: <leader>fg でカレントディレクトリからテキストを検索
-    {"<C-r>", function() require("telescope.builtin").live_grep() end, desc = "Live Grep"},
-    -- 開いているバッファ検索: <leader>fb
-    {"<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Find Buffers"},
-    -- ヘルプタグ検索: <leader>fh
-    {"<leader>fh", function() require("telescope.builtin").help_tags() end, desc = "Help Tags"},
+    -- ファイル検索: <leader>f でプロジェクト内のファイルを検索
+    {"<C-p>", function() require("telescope.builtin").find_files() end, desc = "Find Files"},
+    -- Grep検索: <leader>r でカレントディレクトリからテキストを検索
+    {"<C-f>", function() require("telescope.builtin").live_grep() end, desc = "Live Grep"},
     -- 診断一覧: <leader>fd で診断を表示
     {"<leader>fd", function() require("telescope.builtin").diagnostics() end, desc = "Diagnostics"},
     -- 現在のバッファのみの診断: <leader>fD

@@ -5,6 +5,7 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
     "folke/neodev.nvim",
   },
   config = function()
@@ -61,26 +62,24 @@ return {
 
     require("mason").setup({
       ui = {
-        ensure_installed = {
-          -- LSP Servers
-          "typescript-language-server",
-          "pyright",
-          "html-lsp",
-          "css-lsp",
-          "emmet-ls",
-          "lua-language-server",
-          -- Debug Adapters
-          "js-debug-adapter",
-          -- Linters/Formatters
-          "prettier",
-          "eslint_d",
+        border = "rounded",
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗"
         }
       }
     })
 
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
+    -- LSPサーバーの自動インストール
     require("mason-lspconfig").setup({
+      ensure_installed = {
+        "ts_ls",           -- TypeScript/JavaScript
+        "html",            -- HTML
+        "tailwindcss",     -- Tailwind CSS
+        "lua_ls",          -- Lua
+      },
+      automatic_installation = true,
       handlers = {
         -- すべてのサーバーに共通の設定を適用
         function(server_name)
@@ -91,6 +90,26 @@ return {
         end,
       }
     })
+
+    -- その他のツール（フォーマッター、リンター、DAP）の自動インストール
+    require("mason-tool-installer").setup({
+      ensure_installed = {
+        -- Formatters
+        "prettier",        -- JavaScript/TypeScript/HTML/CSS/JSON
+        "prettierd",       -- Prettier daemon (faster)
+        "stylua",          -- Lua formatter
+        
+        -- Linters
+        "stylelint",       -- CSS/SCSS linter
+        
+        -- Debug Adapters
+        "js-debug-adapter", -- JavaScript/TypeScript debugger
+      },
+      auto_update = false,
+      run_on_start = true,
+    })
+
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
   end,
 

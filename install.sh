@@ -47,4 +47,25 @@ EOF
     fi
 fi
 
+# LazyGit設定ファイルのセットアップ（lazygitがインストールされている場合のみ）
+if command -v lazygit &> /dev/null; then
+    LAZYGIT_CONFIG_DIR=$(lazygit --print-config-dir 2>/dev/null)
+    
+    if [[ -n "$LAZYGIT_CONFIG_DIR" ]]; then
+        # 設定ディレクトリが存在しない場合は作成
+        mkdir -p "$LAZYGIT_CONFIG_DIR"
+        
+        # 既存の設定ファイルをバックアップ（シンボリックリンクでない場合のみ）
+        if [[ -f "$LAZYGIT_CONFIG_DIR/config.yml" && ! -L "$LAZYGIT_CONFIG_DIR/config.yml" ]]; then
+            mkdir -p "$BACKUP_DIR"
+            cp "$LAZYGIT_CONFIG_DIR/config.yml" "$BACKUP_DIR/lazygit_config.yml"
+            echo "既存の lazygit config.yml をバックアップしました: $BACKUP_DIR"
+        fi
+        
+        # シンボリックリンクを作成
+        ln -sf "$DOTFILES_DIR/.config/lazygit/config.yml" "$LAZYGIT_CONFIG_DIR/config.yml"
+        echo "LazyGit設定ファイルをセットアップしました"
+    fi
+fi
+
 echo "dotfiles setup complete. Run 'source ~/.zshrc' to apply changes."

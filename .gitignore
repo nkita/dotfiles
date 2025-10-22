@@ -8,3 +8,4 @@ zsh/local/*.zsh
 # バックアップファイル
 backup/*
 !backup/.gitkeep
+.DS_Store
