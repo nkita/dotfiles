@@ -18,6 +18,7 @@ alias gb='git branch'
 alias gp='git pull'
 alias gl='git log --pretty=fuller'
 alias gm='git commit -m'
+alias lg='lazygit'
 
 # Docker関連エイリアス
 alias dc='docker-compose'

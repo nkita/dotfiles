@@ -37,7 +37,7 @@ return {
 		})
 
 		-- 3. ツリーの開閉キーマップ
-		-- <leader>e (または好きなキー) でツリーを開閉
-		vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle NvimTree" })
+		-- Ctrl+E でツリーを開閉
+		vim.keymap.set("n", "<C-e>", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle NvimTree" })
 	end,
 }

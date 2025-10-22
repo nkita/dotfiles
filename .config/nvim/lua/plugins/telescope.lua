@@ -11,9 +11,9 @@ return {
   -- 2. キーマップの設定 (遅延読み込みの設定を兼ねる)
   keys = {
     -- ファイル検索: <leader>ff でプロジェクト内のファイルを検索
-    {"<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find Files"},
+    {"<C-f>", function() require("telescope.builtin").find_files() end, desc = "Find Files"},
     -- Grep検索: <leader>fg でカレントディレクトリからテキストを検索
-    {"<leader>fg", function() require("telescope.builtin").live_grep() end, desc = "Live Grep"},
+    {"<C-r>", function() require("telescope.builtin").live_grep() end, desc = "Live Grep"},
     -- 開いているバッファ検索: <leader>fb
     {"<leader>fb", function() require("telescope.builtin").buffers() end, desc = "Find Buffers"},
     -- ヘルプタグ検索: <leader>fh
@@ -54,10 +54,15 @@ return {
     -- find_files の結果にソート設定を適用
     find_files = {
       sorter = sorters.get_fuzzy_file_sorter,
+      hidden = true,  -- 隠しファイル・ディレクトリを表示
+      follow = true,  -- シンボリックリンクを追跡
     },
     -- live_grep など他のピッカーにも適用できます
     live_grep = {
       sorter = sorters.get_fuzzy_file_sorter,
+      additional_args = function()
+        return { "--hidden" }  -- ripgrepで隠しファイルも検索
+      end,
     }
   }
       -- ここに他の拡張機能の設定を追加

@@ -13,7 +13,7 @@ return {
   },
   -- キーマップ設定
   keys = {
-    { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+    { "<C-t>", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     { "<leader>gf", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit Current File" },
   },
 }
