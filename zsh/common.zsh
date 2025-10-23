@@ -45,3 +45,33 @@ fi
 
 # Node.js PATH設定
 export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# ===================================
+# fzf カスタム関数
+# ===================================
+
+# ff: ファイル検索してNeovimで開く
+ff() {
+  local file
+  file=$(fzf \
+    --preview 'bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || cat {}' \
+    --preview-window=right:60%:wrap \
+    --bind 'ctrl-/:toggle-preview' \
+    --header 'Enter: Open in Neovim | Ctrl-/: Toggle preview'
+  )
+  [[ -n "$file" ]] && nvim "$file"
+}
+
+# fg: プロジェクト全体をgrepしてファイル:行で開く
+fg() {
+  local result
+  result=$(rg --line-number --color=always --no-heading . 2>/dev/null | \
+    fzf --ansi \
+        --delimiter ':' \
+        --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
+        --preview-window=right:60%:wrap:+{2}-5 \
+        --bind 'ctrl-/:toggle-preview' \
+        --header 'Enter: Open in Neovim at line | Ctrl-/: Toggle preview'
+  )
+  [[ -n "$result" ]] && nvim "+$(echo $result | cut -d: -f2)" "$(echo $result | cut -d: -f1)"
+}

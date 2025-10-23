@@ -8,7 +8,7 @@
 
 ```bash
 # 1. 依存関係をインストール
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep neovim eza lazygit git-delta
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep neovim eza lazygit git-delta bat
 brew install --cask font-hack-nerd-font
 
 # 2. dotfilesをクローンしてセットアップ
@@ -68,6 +68,7 @@ brew install jandedobbeleer/oh-my-posh/oh-my-posh
 # ファイル操作・検索ツール
 brew install fzf
 brew install ripgrep
+brew install bat  # シンタックスハイライト付きプレビュー
 
 # Neovim関連
 brew install neovim
@@ -123,6 +124,18 @@ source ~/.zshrc
 
 このdotfilesには以下のNeovim機能が含まれています：
 
+**ファイルパスのコピー**
+```vim
+<leader>yf : ファイル名をコピー
+<leader>yp : 相対パスをコピー
+<leader>ya : 絶対パスをコピー
+```
+
+**コメントアウト**
+```vim
+Ctrl+/ : 行/選択範囲をコメントアウト
+```
+
 **Git管理（LazyGit）**
 ```vim
 <leader>gg : LazyGit起動
@@ -155,6 +168,13 @@ gr          : 参照一覧
 K           : ホバー情報を表示
 ```
 
+**ファイル検索・Grep（Telescope）**
+```vim
+<leader>f  : ファイル名で検索
+<leader>r  : 内容をgrep検索
+Ctrl+E     : ファイルツリー表示
+```
+
 **Node.jsデバッグ**
 ```vim
 " JavaScriptファイルで使用
@@ -165,6 +185,16 @@ F3      : ステップアウト
 F7      : デバッグUIの表示/非表示
 <leader>b : ブレークポイント切り替え
 ```
+
+### ターミナルカスタムコマンド
+
+**fzfカスタム関数**
+```bash
+ff : ファイル検索してNeovimで開く（プレビュー付き）
+fg : grep検索してNeovimで該当行を開く（プレビュー付き）
+```
+
+どちらも`Ctrl+/`でプレビューの表示/非表示を切り替えられます。
 
 ## 更新・メンテナンス
 
