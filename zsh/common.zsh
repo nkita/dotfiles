@@ -52,26 +52,37 @@ export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 # ff: ファイル検索してNeovimで開く
 ff() {
+  local target_dir="${1:-.}"
   local file
-  file=$(fzf \
-    --preview 'bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || cat {}' \
-    --preview-window=right:60%:wrap \
-    --bind 'ctrl-/:toggle-preview' \
-    --header 'Enter: Open in Neovim | Ctrl-/: Toggle preview'
+  (
+    cd "$target_dir" || return 1
+    file=$(fzf \
+      --preview 'bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || cat {}' \
+      --preview-window=right:60%:wrap \
+      --bind 'ctrl-/:toggle-preview' \
+      --header 'Enter: Open in Neovim | Ctrl-/: Toggle preview' \
+      --walker-skip=node_modules,.git,.cache
+    )
+    [[ -n "$file" ]] && nvim "$file"
   )
-  [[ -n "$file" ]] && nvim "$file"
 }
 
 # fg: プロジェクト全体をgrepしてファイル:行で開く
 fg() {
+  local target_dir="${1:-.}"
   local result
-  result=$(rg --line-number --color=always --no-heading . 2>/dev/null | \
-    fzf --ansi \
-        --delimiter ':' \
-        --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
-        --preview-window=right:60%:wrap:+{2}-5 \
-        --bind 'ctrl-/:toggle-preview' \
-        --header 'Enter: Open in Neovim at line | Ctrl-/: Toggle preview'
+  (
+    cd "$target_dir" || return 1
+    result=$(rg --line-number --color=always --no-heading \
+      --glob '!node_modules' --glob '!.git' --glob '!.cache' \
+      . 2>/dev/null | \
+      fzf --ansi \
+          --delimiter ':' \
+          --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
+          --preview-window=right:60%:wrap:+{2}-5 \
+          --bind 'ctrl-/:toggle-preview' \
+          --header 'Enter: Open in Neovim at line | Ctrl-/: Toggle preview'
+    )
+    [[ -n "$result" ]] && nvim "+$(echo $result | cut -d: -f2)" "$(echo $result | cut -d: -f1)"
   )
-  [[ -n "$result" ]] && nvim "+$(echo $result | cut -d: -f2)" "$(echo $result | cut -d: -f1)"
 }

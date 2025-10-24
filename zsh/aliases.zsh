@@ -21,7 +21,7 @@ alias gm='git commit -m'
 alias lg='lazygit'
 
 # Docker関連エイリアス
-alias dc='docker-compose'
+alias dc='docker compose'
 alias dcew='dc exec workspace bash'
 alias dcer='dc exec redis bash'
 alias dcem='dc exec mysql bash'
