@@ -44,6 +44,7 @@ return {
           "node_modules",
           "%.git/",
           "%.venv/",
+          "%.next/",
         },
       },
       pickers = {

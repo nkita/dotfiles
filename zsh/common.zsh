@@ -43,8 +43,24 @@ if type brew &>/dev/null; then
     compinit
 fi
 
+# zoxide (z command - smart directory jumper)
+# Need: brew install zoxide
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
 # Node.js PATH設定
-export PATH=$HOME/.nodebrew/current/bin:$PATH
+# nvm (Node Version Manager)
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+    source "$NVM_DIR/nvm.sh"  # This loads nvm
+fi
+if [[ -s "$NVM_DIR/bash_completion" ]]; then
+    source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+# nodebrew (古い設定 - nvmを使う場合はコメントアウト推奨)
+# export PATH=$HOME/.nodebrew/current/bin:$PATH
 
 # ===================================
 # fzf カスタム関数
@@ -67,8 +83,8 @@ ff() {
   )
 }
 
-# fg: プロジェクト全体をgrepしてファイル:行で開く
-fg() {
+# gf: プロジェクト全体をgrepしてファイル:行で開く
+gf() {
   local target_dir="${1:-.}"
   local result
   (

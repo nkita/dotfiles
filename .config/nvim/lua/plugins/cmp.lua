@@ -21,10 +21,11 @@ return {
 		cmp.setup({
 			-- 補完ソースの指定
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "buffer" },
-				{ name = "path" },
+				{ name = "copilot", group_index = 2 },
+				{ name = "nvim_lsp", group_index = 2 },
+				{ name = "luasnip", group_index = 2 },
+				{ name = "buffer", group_index = 2 },
+				{ name = "path", group_index = 2 },
 			}),
 
 			-- スニペットの展開設定
@@ -50,14 +51,16 @@ return {
 				completion = cmp.config.window.bordered(),
 				documentation = cmp.config.window.bordered(),
 			},
-
 			formatting = {
 				format = lspkind.cmp_format({
-					with_text = true, -- 補完候補のテキストを表示 (trueに設定)
+					mode = "symbol_text",
+					max_width = 50,
+					symbol_map = { Copilot = "" },
 					menu = {
+						copilot = "[copilot]",
 						buffer = "[buf]",
-						nvim_lsp = "[LSP]",
-						luasnip = "[Snip]",
+						nvim_lsp = "[lsp]",
+						luasnip = "[snip]",
 						path = "[path]",
 					},
 				}),
