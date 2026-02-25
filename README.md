@@ -8,7 +8,9 @@
 
 ```bash
 # 1. 依存関係をインストール
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep neovim eza lazygit git-delta bat
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions \
+  jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep bat neovim glow \
+  lazygit git-delta eza
 brew install --cask font-hack-nerd-font
 
 # 2. dotfilesをクローンしてセットアップ
@@ -56,45 +58,62 @@ dotfiles/
 
 ### 必須パッケージ
 
+以下のコマンドで必要なすべてのパッケージを一括インストールできます：
+
 ```bash
-# zsh拡張機能
-brew install zsh-autosuggestions
-brew install zsh-syntax-highlighting
-brew install zsh-completions
+# 必須パッケージを一括インストール
+brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions \
+  jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep bat neovim glow \
+  lazygit git-delta eza
 
-# oh-my-posh（プロンプトテーマ）
-brew install jandedobbeleer/oh-my-posh/oh-my-posh
-
-# ファイル操作・検索ツール
-brew install fzf
-brew install ripgrep
-brew install bat  # シンタックスハイライト付きプレビュー
-
-# Neovim関連
-brew install neovim
-brew install glow  # 軽量・安全なMarkdownプレビュー
-
-# Git TUI（lazygit）
-brew install lazygit
-
-# Git差分ツール（delta）
-brew install git-delta
-
-# 高機能lsコマンド（オプション）
-brew install eza
+# Nerd Fontをインストール（アイコン表示に必要）
+brew install --cask font-hack-nerd-font
 ```
+
+#### 各パッケージの説明
+
+**zsh拡張機能**
+- `zsh-autosuggestions` - コマンドの自動補完候補を表示
+- `zsh-syntax-highlighting` - コマンドのシンタックスハイライト
+- `zsh-completions` - 追加の補完定義
+
+**プロンプトテーマ**
+- `jandedobbeleer/oh-my-posh/oh-my-posh` - カスタマイズ可能なプロンプトテーマエンジン
+
+**ファイル操作・検索ツール**
+- `fzf` - 高速なファジーファインダー
+- `ripgrep` - 高速なgrep代替ツール
+- `bat` - シンタックスハイライト付きcatコマンド
+
+**テキストエディタ**
+- `neovim` - Vim互換の高機能エディタ
+- `glow` - Markdownプレビューツール
+
+**Git関連ツール**
+- `lazygit` - Git操作のTUIツール
+- `git-delta` - Git差分の見やすい表示ツール
+
+**その他のツール**
+- `eza` - 高機能なlsコマンド代替（アイコン表示対応）
 
 ### Nerd Fonts
 
 Neovimやoh-my-poshで使用するアイコンフォントをインストール：
 
 ```bash
-# 例：Hack Nerd Fontをインストール
+# 推奨：Hack Nerd Font
 brew install --cask font-hack-nerd-font
 
 # または他のNerd Font
 brew install --cask font-fira-code-nerd-font
 brew install --cask font-jetbrains-mono-nerd-font
+```
+
+### オプション（推奨）
+
+```bash
+# zoxide - スマートなディレクトリジャンプツール（z コマンド）
+brew install zoxide
 ```
 
 ## セットアップ方法

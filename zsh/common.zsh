@@ -19,24 +19,20 @@ export VISUAL=nvim
 export EDITOR=nvim
 
 # oh-my-posh設定
-# Need: brew install jandedobbeleer/oh-my-posh/oh-my-posh
 # Theme: https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/amro.omp.json
 eval "$(oh-my-posh init zsh --config ~/dotfiles/amro.omp.json)"
 
 # zsh-autosuggestions
-# Need: brew install zsh-autosuggestions
 if [[ -f $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 # zsh-syntax-highlighting
-# Need: brew install zsh-syntax-highlighting
 if [[ -f $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # zsh-completions
-# Need: brew install zsh-completions
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
     autoload -Uz compinit
@@ -44,7 +40,6 @@ if type brew &>/dev/null; then
 fi
 
 # zoxide (z command - smart directory jumper)
-# Need: brew install zoxide
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
 fi
@@ -101,4 +96,103 @@ gf() {
     )
     [[ -n "$result" ]] && nvim "+$(echo $result | cut -d: -f2)" "$(echo $result | cut -d: -f1)"
   )
+}
+
+# ===================================
+# Git worktree shortcuts
+# ===================================
+
+# gwa: ブランチ名を指定してworktreeを追加し、作成先へ移動
+gwa() {
+    if [ -z "$1" ]; then
+        echo "Error: ブランチ名を指定してください。"
+        echo "Usage: gwa {branch-name}"
+        return 1
+    fi
+
+    local current_dir branch_name target_path
+    current_dir=$(basename "$PWD")
+    branch_name="$1"
+    target_path="../${current_dir}-${branch_name}"
+
+    # ブランチが存在しなければ新規作成してworktreeを追加
+    if git show-ref --verify --quiet "refs/heads/$branch_name" || git show-ref --verify --quiet "refs/remotes/origin/$branch_name"; then
+        git worktree add "$target_path" "$branch_name"
+    else
+        git worktree add -b "$branch_name" "$target_path"
+    fi
+
+    # 作成に成功した場合のみ移動する
+    if [ $? -eq 0 ]; then
+        cd "$target_path" || return 1
+    fi
+}
+
+# gwr: worktreeを削除。必要なら削除後に別ディレクトリへ退避
+gwr() {
+    local input_target="$1"
+    local removed_path=""
+    local current_path fallback_path wt_path
+    local -a worktree_paths
+
+    current_path=$(pwd -P)
+    worktree_paths=("${(@f)$(git worktree list --porcelain 2>/dev/null | awk '/^worktree /{print substr($0,10)}')}")
+
+    if [ ${#worktree_paths[@]} -eq 0 ]; then
+        echo "Error: このディレクトリはgit worktree管理下ではありません。"
+        return 1
+    fi
+
+    # 削除後に移動する候補を事前に決める
+    fallback_path="$HOME"
+
+    if [ -z "$input_target" ]; then
+        removed_path="$current_path"
+        for wt_path in "${worktree_paths[@]}"; do
+            if [ "$wt_path" != "$removed_path" ] && [ -d "$wt_path" ]; then
+                fallback_path="$wt_path"
+                break
+            fi
+        done
+
+        git worktree remove ./
+        if [ $? -ne 0 ]; then
+            return 1
+        fi
+
+        cd "$fallback_path" || return 1
+        return 0
+    fi
+
+    if [ -d "$input_target" ]; then
+        removed_path=$(cd "$input_target" 2>/dev/null && pwd -P)
+    else
+        for wt_path in "${worktree_paths[@]}"; do
+            if [ "$(basename "$wt_path")" = "$input_target" ] || [ "$wt_path" = "$input_target" ]; then
+                removed_path="$wt_path"
+                break
+            fi
+        done
+    fi
+
+    if [ -z "$removed_path" ]; then
+        echo "Error: 指定したworktreeが見つかりません: $input_target"
+        return 1
+    fi
+
+    for wt_path in "${worktree_paths[@]}"; do
+        if [ "$wt_path" != "$removed_path" ] && [ -d "$wt_path" ]; then
+            fallback_path="$wt_path"
+            break
+        fi
+    done
+
+    git worktree remove "$removed_path"
+    if [ $? -ne 0 ]; then
+        return 1
+    fi
+
+    if [ "$current_path" = "$removed_path" ] || [[ "$current_path" == "$removed_path/"* ]]; then
+        cd "$fallback_path" || return 1
+    fi
 }

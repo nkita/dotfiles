@@ -7,6 +7,8 @@ alias vi='nvim'
 alias vim='nvim'
 alias f='fzf'
 alias coma='cat ~/.command'
+alias cc='claude'
+alias cx='codex'
 
 # Git関連エイリアス
 alias g='git'
@@ -40,9 +42,11 @@ alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 
 # eza設定（インストールされている場合）
-# Need: brew install eza
 if [[ $(command -v eza) ]]; then
     alias ls='eza --icons --git --group-directories-first'
     alias ll='eza -l -T -a -I "node_modules|.git|.cache" --git --icons --group-directories-first -L 1'
     alias lll='eza -T -a -I "node_modules|.git|.cache" --git --icons --group-directories-first -L 1'
 fi
+
+
+alias cd='z'
