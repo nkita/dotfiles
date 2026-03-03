@@ -17,6 +17,7 @@ return {
 		"yaml",
 		"markdown",
 		"lua",
+		"rust",
 		-- 他にフォーマットしたいファイルタイプがあれば追加
 	},
 	-- lazy.nvimでは config = function() ... end よりも opts = { ... } を使うのが推奨
@@ -36,6 +37,7 @@ return {
 			yaml = { "prettierd" },
 			markdown = { "prettierd" },
 			lua = { "stylua" },
+			rust = { "rustfmt" },
 		},
 
 		-- 自動フォーマットは無効（手動のみ）

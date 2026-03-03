@@ -78,6 +78,7 @@ return {
         "html",            -- HTML
         "tailwindcss",     -- Tailwind CSS
         "lua_ls",          -- Lua
+        "rust_analyzer",   -- Rust
       },
       automatic_installation = true,
       handlers = {

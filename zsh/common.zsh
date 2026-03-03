@@ -103,7 +103,10 @@ gf() {
 # ===================================
 
 # gwa: ブランチ名を指定してworktreeを追加し、作成先へ移動
-gwa() {
+if alias gwa >/dev/null 2>&1; then
+    echo "[dotfiles] alias 'gwa' already exists. Skip function definition."
+else
+function gwa {
     if [ -z "$1" ]; then
         echo "Error: ブランチ名を指定してください。"
         echo "Usage: gwa {branch-name}"
@@ -127,9 +130,13 @@ gwa() {
         cd "$target_path" || return 1
     fi
 }
+fi
 
 # gwr: worktreeを削除。必要なら削除後に別ディレクトリへ退避
-gwr() {
+if alias gwr >/dev/null 2>&1; then
+    echo "[dotfiles] alias 'gwr' already exists. Skip function definition."
+else
+function gwr {
     local input_target="$1"
     local removed_path=""
     local current_path fallback_path wt_path
@@ -196,3 +203,4 @@ gwr() {
         cd "$fallback_path" || return 1
     fi
 }
+fi
