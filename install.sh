@@ -68,4 +68,53 @@ if command -v lazygit &> /dev/null; then
     fi
 fi
 
+# ===================================
+# Claude Code 設定
+# ===================================
+
+CLAUDE_DIR="$HOME/.claude"
+DOTFILES_CLAUDE_DIR="$DOTFILES_DIR/.claude"
+
+# skills ディレクトリのシンボリックリンク
+if [[ -d "$DOTFILES_CLAUDE_DIR/skills" ]]; then
+    mkdir -p "$CLAUDE_DIR"
+    if [[ -L "$CLAUDE_DIR/skills" ]]; then
+        rm "$CLAUDE_DIR/skills"
+    elif [[ -d "$CLAUDE_DIR/skills" ]]; then
+        mkdir -p "$BACKUP_DIR"
+        mv "$CLAUDE_DIR/skills" "$BACKUP_DIR/claude_skills"
+        echo "既存の .claude/skills をバックアップしました: $BACKUP_DIR"
+    fi
+    ln -sf "$DOTFILES_CLAUDE_DIR/skills" "$CLAUDE_DIR/skills"
+    echo "Claude skills をセットアップしました"
+fi
+
+# statusline-command.sh のシンボリックリンク
+if [[ -f "$DOTFILES_CLAUDE_DIR/statusline-command.sh" ]]; then
+    if [[ -f "$CLAUDE_DIR/statusline-command.sh" && ! -L "$CLAUDE_DIR/statusline-command.sh" ]]; then
+        mkdir -p "$BACKUP_DIR"
+        cp "$CLAUDE_DIR/statusline-command.sh" "$BACKUP_DIR/statusline-command.sh"
+        echo "既存の statusline-command.sh をバックアップしました: $BACKUP_DIR"
+    fi
+    ln -sf "$DOTFILES_CLAUDE_DIR/statusline-command.sh" "$CLAUDE_DIR/statusline-command.sh"
+    echo "Claude statusline-command.sh をセットアップしました"
+fi
+
+# settings.json に statusline を設定
+SETTINGS_FILE="$CLAUDE_DIR/settings.json"
+STATUSLINE_PATH="$CLAUDE_DIR/statusline-command.sh"
+if [[ ! -f "$SETTINGS_FILE" ]]; then
+    echo '{}' > "$SETTINGS_FILE"
+fi
+# jq で statusline キーのみ更新（既存の設定は保持）
+if command -v jq &> /dev/null; then
+    tmp=$(mktemp)
+    jq --arg path "$STATUSLINE_PATH" '.statusline = $path' "$SETTINGS_FILE" > "$tmp" && mv "$tmp" "$SETTINGS_FILE"
+    echo "Claude settings.json に statusline を設定しました"
+else
+    echo "警告: jq がインストールされていないため settings.json を自動設定できません"
+    echo "手動で ~/.claude/settings.json に以下を追加してください:"
+    echo "  \"statusline\": \"$STATUSLINE_PATH\""
+fi
+
 echo "dotfiles setup complete. Run 'source ~/.zshrc' to apply changes."

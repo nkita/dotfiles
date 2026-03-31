@@ -1,0 +1,4 @@
+interface:
+  display_name: "Desktop Screenshots"
+  short_description: "Get images from Desktop screenshots folder"
+  default_prompt: "Use $desktop-screenshots to find and fetch images from Desktop/screenshots."
