@@ -100,21 +100,30 @@ if [[ -f "$DOTFILES_CLAUDE_DIR/statusline-command.sh" ]]; then
     echo "Claude statusline-command.sh をセットアップしました"
 fi
 
-# settings.json に statusline を設定
+# settings.json をコピー（$HOME を展開して配置）
+SETTINGS_SRC="$DOTFILES_CLAUDE_DIR/settings.json"
 SETTINGS_FILE="$CLAUDE_DIR/settings.json"
-STATUSLINE_PATH="$CLAUDE_DIR/statusline-command.sh"
-if [[ ! -f "$SETTINGS_FILE" ]]; then
-    echo '{}' > "$SETTINGS_FILE"
-fi
-# jq で statusline キーのみ更新（既存の設定は保持）
-if command -v jq &> /dev/null; then
-    tmp=$(mktemp)
-    jq --arg path "$STATUSLINE_PATH" '.statusline = $path' "$SETTINGS_FILE" > "$tmp" && mv "$tmp" "$SETTINGS_FILE"
-    echo "Claude settings.json に statusline を設定しました"
-else
-    echo "警告: jq がインストールされていないため settings.json を自動設定できません"
-    echo "手動で ~/.claude/settings.json に以下を追加してください:"
-    echo "  \"statusline\": \"$STATUSLINE_PATH\""
+if [[ -f "$SETTINGS_SRC" ]]; then
+    mkdir -p "$CLAUDE_DIR"
+    if [[ -f "$SETTINGS_FILE" && ! -L "$SETTINGS_FILE" ]]; then
+        echo ""
+        echo "既存の $SETTINGS_FILE が見つかりました。上書きしますか？"
+        echo "現在の内容:"
+        cat "$SETTINGS_FILE"
+        echo ""
+        read -r -p "上書きしますか？ [y/N]: " confirm
+        if [[ "$confirm" =~ ^[Yy]$ ]]; then
+            mkdir -p "$BACKUP_DIR"
+            cp "$SETTINGS_FILE" "$BACKUP_DIR/claude_settings.json"
+            echo "バックアップしました: $BACKUP_DIR/claude_settings.json"
+        else
+            echo "settings.json のコピーをスキップしました"
+        fi
+    fi
+    if [[ ! -f "$SETTINGS_FILE" || "$confirm" =~ ^[Yy]$ ]]; then
+        envsubst < "$SETTINGS_SRC" > "$SETTINGS_FILE"
+        echo "Claude settings.json をコピーしました"
+    fi
 fi
 
 echo "dotfiles setup complete. Run 'source ~/.zshrc' to apply changes."

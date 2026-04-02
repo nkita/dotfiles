@@ -7,8 +7,6 @@ alias vi='nvim'
 alias vim='nvim'
 alias f='fzf'
 alias coma='cat ~/.command'
-alias cc='claude'
-alias cx='codex'
 
 # Git関連エイリアス
 alias g='git'
