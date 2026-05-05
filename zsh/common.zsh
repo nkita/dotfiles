@@ -20,7 +20,7 @@ export EDITOR=nvim
 
 # oh-my-posh設定
 # Theme: https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/amro.omp.json
-eval "$(oh-my-posh init zsh --config ~/dotfiles/amro.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/dotfiles/zsh/amro.omp.json)"
 
 # Homebrew共有ディレクトリ
 if type brew &>/dev/null; then

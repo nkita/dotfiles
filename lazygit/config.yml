@@ -9,12 +9,10 @@ gui:
       - "#1a3a5a"
     selectedRangeBgColor:
       - "#1a3a5a"
-
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never --side-by-side
-
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --side-by-side
 os:
   editCommand: 'nvim'
   editCommandTemplate: '{{editor}} {{filename}}'
