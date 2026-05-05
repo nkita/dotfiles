@@ -8,7 +8,7 @@
 
 ```bash
 # 1. 依存関係をインストール
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions \
+brew install zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting zsh-completions \
   jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep bat neovim glow \
   lazygit git-delta eza
 brew install --cask font-hack-nerd-font
@@ -62,7 +62,7 @@ dotfiles/
 
 ```bash
 # 必須パッケージを一括インストール
-brew install zsh-autosuggestions zsh-syntax-highlighting zsh-completions \
+brew install zsh-autocomplete zsh-autosuggestions zsh-syntax-highlighting zsh-completions \
   jandedobbeleer/oh-my-posh/oh-my-posh fzf ripgrep bat neovim glow \
   lazygit git-delta eza
 
@@ -74,6 +74,7 @@ brew install --cask font-hack-nerd-font
 
 **zsh拡張機能**
 - `zsh-autosuggestions` - コマンドの自動補完候補を表示
+- `zsh-autocomplete` - 入力中に補完メニューを自動表示
 - `zsh-syntax-highlighting` - コマンドのシンタックスハイライト
 - `zsh-completions` - 追加の補完定義
 
@@ -325,7 +326,7 @@ cp backup/backup_20241020_143022/.zshrc ~/.zshrc
 **zshプラグインが動作しない**
 ```bash
 # パッケージがインストールされているか確認
-brew list | grep -E "(zsh-autosuggestions|zsh-syntax-highlighting|zsh-completions)"
+brew list | grep -E "(zsh-autocomplete|zsh-autosuggestions|zsh-syntax-highlighting|zsh-completions)"
 
 # パスが正しいか確認
 echo $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
