@@ -2,13 +2,13 @@
   "document": {
     "block_prefix": "\n",
     "block_suffix": "\n",
-    "color": "#cdd6f4",
+    "color": "#c8d3f5",
     "margin": 2
   },
   "block_quote": {
     "indent": 1,
     "indent_token": "▌ ",
-    "color": "#6c7086",
+    "color": "#636da6",
     "italic": true
   },
   "paragraph": {},
@@ -22,40 +22,40 @@
   "h1": {
     "prefix": "  ",
     "suffix": "  ",
-    "color": "#1e1e2e",
-    "background_color": "#cba6f7",
+    "color": "#222436",
+    "background_color": "#82aaff",
     "bold": true,
     "block_suffix": "\n"
   },
   "h2": {
-    "color": "#89b4fa",
+    "color": "#82aaff",
     "bold": true
   },
   "h3": {
-    "color": "#74c7ec"
+    "color": "#86e1fc"
   },
   "h4": {
-    "color": "#89dceb"
+    "color": "#b4f9f8"
   },
   "h5": {
-    "color": "#a6adc8"
+    "color": "#828bb8"
   },
   "h6": {
-    "color": "#6c7086"
+    "color": "#636da6"
   },
   "strikethrough": {
     "crossed_out": true
   },
   "emph": {
     "italic": true,
-    "color": "#f38ba8"
+    "color": "#fca7ea"
   },
   "strong": {
     "bold": true,
-    "color": "#fab387"
+    "color": "#ff966c"
   },
   "hr": {
-    "color": "#313244",
+    "color": "#2f334d",
     "format": "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
   },
   "item": {},
@@ -65,34 +65,34 @@
   "task": {
     "unticked_prefix": "  ○ ",
     "ticked_prefix": "  ● ",
-    "ticked_color": "#a6e3a1",
-    "unticked_color": "#6c7086"
+    "ticked_color": "#c3e88d",
+    "unticked_color": "#636da6"
   },
   "link": {
-    "color": "#89b4fa",
+    "color": "#82aaff",
     "underline": true
   },
   "link_text": {
-    "color": "#89b4fa",
+    "color": "#82aaff",
     "bold": true
   },
   "image": {
-    "color": "#a6e3a1"
+    "color": "#c3e88d"
   },
   "image_text": {
-    "color": "#a6e3a1"
+    "color": "#c3e88d"
   },
   "code": {
     "prefix": " ",
     "suffix": " ",
-    "color": "#a6e3a1",
+    "color": "#c3e88d",
     "background_color": "#323232"
   },
   "code_block": {
-    "color": "#cdd6f4",
+    "color": "#c8d3f5",
     "background_color": "#323232",
     "margin": 2,
-    "chroma_style": "catppuccin-mocha"
+    "chroma_style": "tokyonight-moon"
   },
   "table": {
     "center_separator": "┼",

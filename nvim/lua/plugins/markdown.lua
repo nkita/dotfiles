@@ -6,8 +6,11 @@ return {
 		ft = { "markdown" },
 		config = function()
 			require("glow").setup({
-				style = "dark",
-				width = 120,
+				style = vim.fn.expand("~/dotfiles/glow/tokyo-night.json"),
+				width = vim.o.columns,
+				height = vim.o.lines,
+				width_ratio = 1,
+				height_ratio = 1,
 			})
 			vim.keymap.set("n", "<leader>md", ":Glow<CR>", { desc = "Markdown Preview (Glow)" })
 			vim.keymap.set("n", "<leader>mp", ":Glow<CR>", { desc = "Markdown Preview" })

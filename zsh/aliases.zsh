@@ -19,7 +19,7 @@ alias gp='git pull'
 alias gl='git log --pretty=fuller'
 alias gm='git commit -m'
 alias lg='lazygit'
-alias glow='glow --style "$HOME/dotfiles/glow/tokyo-night.json"'
+alias glow='glow -p'
 
 # Docker関連エイリアス
 alias dc='sudo docker compose'

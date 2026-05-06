@@ -21,6 +21,12 @@ export PATH="$HOME/.local/bin:$PATH"
 export VISUAL=nvim
 export EDITOR=nvim
 
+# Glow スタイル（ターミナル・vim両方で有効）
+export GLAMOUR_STYLE="$HOME/dotfiles/glow/tokyo-night.json"
+
+# less でANSIカラーを有効化（glow pagerなどで使用）
+export LESS="-R"
+
 # キーバインド（emacsモード: Ctrl+P/N で履歴移動など）
 bindkey -e
 
