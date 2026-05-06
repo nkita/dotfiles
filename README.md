@@ -97,6 +97,10 @@ ln -s ~/dotfiles/nvim ~/.config/nvim
 mkdir -p ~/.config/lazygit
 ln -s ~/dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
 
+# Glow: シンボリックリンクを作成
+mkdir -p ~/.config/glow
+ln -sf ~/dotfiles/glow/glow.yml ~/.config/glow/glow.yml
+
 # Claude Code: 設定ファイルを個別にシンボリックリンク（~/.claude はClaudeが自動管理するため）
 ln -s ~/dotfiles/claude/settings.json ~/.claude/settings.json
 ln -s ~/dotfiles/claude/statusline-command.sh ~/.claude/statusline-command.sh
@@ -141,6 +145,9 @@ dotfiles/
 │       └── plugins/      # 各プラグイン設定
 ├── lazygit/              # LazyGit設定（~/.config/lazygit/config.yml にシンボリックリンク）
 │   └── config.yml
+├── glow/                 # Glow設定（~/.config/glow/glow.yml にシンボリックリンク）
+│   ├── glow.yml
+│   └── tokyo-night.json  # glow.yml から直接参照
 ├── claude/               # Claude Code設定（各ファイルを ~/.claude/ に個別シンボリックリンク）
 │   ├── settings.json
 │   ├── statusline-command.sh
