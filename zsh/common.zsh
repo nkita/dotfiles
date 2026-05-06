@@ -14,13 +14,21 @@ elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# ローカルバイナリ（oh-my-posh など）
+export PATH="$HOME/.local/bin:$PATH"
+
 # エディタ設定
 export VISUAL=nvim
 export EDITOR=nvim
 
+# キーバインド（emacsモード: Ctrl+P/N で履歴移動など）
+bindkey -e
+
 # oh-my-posh設定
 # Theme: https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/amro.omp.json
-eval "$(oh-my-posh init zsh --config ~/dotfiles/zsh/amro.omp.json)"
+if command -v oh-my-posh &>/dev/null; then
+    eval "$(oh-my-posh init zsh --config ~/dotfiles/zsh/amro.omp.json)"
+fi
 
 # Homebrew共有ディレクトリ
 if type brew &>/dev/null; then
